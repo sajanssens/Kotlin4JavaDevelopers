@@ -107,22 +107,22 @@ fun TaxiPark.findTheMostFrequentTripDurationPeriod(): IntRange? {
  * Check whether 20% of the drivers contribute 80% of the income.
  */
 fun TaxiPark.checkParetoPrinciple(): Boolean {
-//    val incomeForEachDriver =
-//            trips.groupBy { it.driver.name }
-//                    .map { Pair(it.key, it.value.map { t -> t.cost }.sum()) }
-//                    .sortedByDescending { it.second }
-
-    // refactored:
-    val incomeForEachDriver =
-            trips.groupBy(Trip::driver)
-                    .map { (_, tripsByDriver) -> tripsByDriver.sumByDouble { it.cost } }
-                    .sortedDescending()
-
     val totalIncome = trips.sumByDouble { it.cost }
     val twentyPercentOfTheNumberOfDrivers = (allDrivers.size * 0.2).toInt()
 
-    val incomeTop20PercentDrivers = incomeForEachDriver.take(twentyPercentOfTheNumberOfDrivers).sum()
-//            incomeForEachDriver.take(twentyPercentOfTheNumberOfDrivers).sumByDouble { it.second }
+    val incomeForEachDriver =
+            trips.groupBy { it.driver.name }
+                    .map { Pair(it.key, it.value.map { t -> t.cost }.sum()) }
+                    .sortedByDescending { it.second }
+
+    val incomeTop20PercentDrivers = incomeForEachDriver.take(twentyPercentOfTheNumberOfDrivers).sumByDouble { it.second }
+
+// refactored:
+//    val incomeForEachDriver =
+//            trips.groupBy(Trip::driver)
+//                    .map { (_, tripsByDriver) -> tripsByDriver.sumByDouble { it.cost } }
+//                    .sortedDescending()
+//    val incomeTop20PercentDrivers = incomeForEachDriver.take(twentyPercentOfTheNumberOfDrivers).sum()
 
     return incomeTop20PercentDrivers.div(totalIncome) * 100 >= 80
 }
