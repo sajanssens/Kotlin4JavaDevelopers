@@ -1,20 +1,14 @@
 package board
 
 class GameBoardImpl<T>(width: Int) : SquareBoardImpl(width), GameBoard<T> {
+
     private val cellContents: MutableMap<Cell, T?> = mutableMapOf()
 
-    init {
-        for (cell in getAllCells()) {
-            cellContents[cell] = null
-        }
+    init { for (cell in getAllCells()) cellContents[cell] = null }
 
-    }
+    override fun get(cell: Cell): T? = cellContents[cell]
 
-    override fun get(cell: Cell): T? = cellContents.get(cell)
-
-    override fun set(cell: Cell, value: T?) {
-        cellContents[cell] = value
-    }
+    override fun set(cell: Cell, value: T?) { cellContents[cell] = value }
 
     override fun filter(predicate: (T?) -> Boolean): Collection<Cell> = cellContents.filter { predicate(it.value) }.keys
 

@@ -2,7 +2,7 @@ package board
 
 import kotlin.math.abs
 
-open class SquareBoardImpl(override val width: Int) : SquareBoard {
+open class SquareBoardImpl(final override val width: Int) : SquareBoard {
 
     private val cells: MutableList<MutableList<Cell>> = mutableListOf()
     private val boardRange = 0 until width
