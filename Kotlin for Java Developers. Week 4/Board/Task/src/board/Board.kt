@@ -1,7 +1,7 @@
 package board
 
 data class Cell(val i: Int, val j: Int) {
-    override fun toString()= "($i, $j)"
+    override fun toString() = "($i, $j)"
 }
 
 enum class Direction {
@@ -13,6 +13,15 @@ enum class Direction {
         RIGHT -> LEFT
         LEFT -> RIGHT
     }
+
+    fun delta() =
+            when (this) {
+                board.Direction.UP -> -1 to 0
+                board.Direction.DOWN -> 1 to 0
+                board.Direction.LEFT -> 0 to -1
+                board.Direction.RIGHT -> 0 to 1
+            }
+
 }
 
 interface SquareBoard {
