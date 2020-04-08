@@ -3,7 +3,7 @@ files:
 - name: src/board/BoardImpl.kt
   visible: true
   placeholders:
-  - offset: 88
+  - offset: 64
     length: 22
     placeholder_text: TODO()
     initial_state:
@@ -12,7 +12,7 @@ files:
     initialized_from_dependency: false
     selected: true
     status: Unchecked
-  - offset: 163
+  - offset: 139
     length: 6
     placeholder_text: TODO()
     initial_state:
@@ -440,6 +440,9 @@ files:
         fun all(predicate: (T?) -> Boolean): Boolean
     }
   learner_created: false
+- name: src/board/SquareBoardImpl.kt
+  visible: true
+  learner_created: true
 feedback_link: https://www.coursera.org/learn/kotlin-for-java-developers/programming/7fkLn/board/discussions
 status: Unchecked
 record: -1
