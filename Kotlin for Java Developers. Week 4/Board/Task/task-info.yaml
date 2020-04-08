@@ -13,7 +13,7 @@ files:
     selected: true
     status: Unchecked
   - offset: 139
-    length: 6
+    length: 20
     placeholder_text: TODO()
     initial_state:
       length: 6
@@ -441,6 +441,9 @@ files:
     }
   learner_created: false
 - name: src/board/SquareBoardImpl.kt
+  visible: true
+  learner_created: true
+- name: src/board/GameBoardImpl.kt
   visible: true
   learner_created: true
 feedback_link: https://www.coursera.org/learn/kotlin-for-java-developers/programming/7fkLn/board/discussions
