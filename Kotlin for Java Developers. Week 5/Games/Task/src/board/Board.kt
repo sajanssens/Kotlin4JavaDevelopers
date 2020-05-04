@@ -16,10 +16,10 @@ enum class Direction {
 
     fun delta() =
             when (this) {
-                board.Direction.UP -> -1 to 0
-                board.Direction.DOWN -> 1 to 0
-                board.Direction.LEFT -> 0 to -1
-                board.Direction.RIGHT -> 0 to 1
+                UP -> -1 to 0
+                DOWN -> 1 to 0
+                LEFT -> 0 to -1
+                RIGHT -> 0 to 1
             }
 
 }

@@ -3,10 +3,10 @@ package playground.fibo
 import playground.inlining.eq
 
 fun fibonacci(): Sequence<Int> = sequence {
-    var start = 0 to 1
+    var e = 0 to 1
     while (true) {
-        yield(start.first)
-        start = start.second to start.first + start.second
+        yield(e.first)
+        e = (e.second) to (e.first + e.second)
     }
 }
 

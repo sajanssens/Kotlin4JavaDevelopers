@@ -6,7 +6,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class TestMoveValuesInRowOrColumn : AbstractTestGameWithSmallNumbers() {
-    private val defaultInput = """-2-4 2--- ---- 4---"""
+    private val defaultInput = """-2-4 2--- ---- 4---""".trimIndent()
 
     @Test
     fun testRow() = testMoveInRowOrColumn({ it.getRow(1, 1..4) }, "Row(1, 1..4)",
@@ -15,7 +15,6 @@ class TestMoveValuesInRowOrColumn : AbstractTestGameWithSmallNumbers() {
     @Test
     fun testRowReversed() = testMoveInRowOrColumn({ it.getRow(1, 4 downTo 1) }, "Row(1, 4 downTo 1)",
             "--24 2--- ---- 4---")
-
 
     @Test
     fun testColumn() = testMoveInRowOrColumn({ it.getColumn(1..4, 1) }, "Column(1..4, 1)",

@@ -2,6 +2,7 @@ package games.game2048
 
 import board.Cell
 import board.Direction
+import board.Direction.*
 import board.GameBoard
 import board.createGameBoard
 import games.game.Game
@@ -40,9 +41,8 @@ class Game2048(private val initializer: Game2048Initializer<Int>) : Game {
 /*
  * Add a new value produced by 'initializer' to a specified cell in a board.
  */
-fun GameBoard<Int?>.addNewValue(initializer: Game2048Initializer<Int>) {
-    TODO()
-}
+fun GameBoard<Int?>.addNewValue(initializer: Game2048Initializer<Int>) =
+        initializer.nextValue(this)?.let { v -> set(v.first, v.second) }
 
 /*
  * Update the values stored in a board,
@@ -53,7 +53,21 @@ fun GameBoard<Int?>.addNewValue(initializer: Game2048Initializer<Int>) {
  * Return 'true' if the values were moved and 'false' otherwise.
  */
 fun GameBoard<Int?>.moveValuesInRowOrColumn(rowOrColumn: List<Cell>): Boolean {
-    TODO()
+    val originalValues = rowOrColumn.map { c -> this[c] }
+    val movedAndMergedValues = originalValues.moveAndMergeEqual { it * 2 }
+
+    return if (isDifferent(originalValues, movedAndMergedValues)) {
+        copyChanges(rowOrColumn, movedAndMergedValues)
+        true
+    } else {
+        false
+    }
+}
+
+private fun isDifferent(values: List<Int?>, movedValues: List<Int>) = values.dropLastWhile { it == null } != movedValues
+
+private fun GameBoard<Int?>.copyChanges(rowOrColumn: List<Cell>, movedValues: List<Int>) {
+    rowOrColumn.withIndex().forEach { (i, c) -> this.set(c, movedValues.getOrNull(i)) }
 }
 
 /*
@@ -64,5 +78,37 @@ fun GameBoard<Int?>.moveValuesInRowOrColumn(rowOrColumn: List<Cell>): Boolean {
  * Return 'true' if the values were moved and 'false' otherwise.
  */
 fun GameBoard<Int?>.moveValues(direction: Direction): Boolean {
-    TODO()
+    // imperative style:
+    var result = false;
+    for (i in 1..width) {
+        val move = move(direction, i, 1..width)
+        result = result || move
+    }
+    return result
+
+    // functional style 1
+    // return (1..width)                                  // stream of ints
+    //         .map { i -> move(direction, i, 1..width) } // stream of booleans
+    //         .any { it } // true if stream contains at least one "true"; otherwise false
+
+    // functional style 2
+    // (1..width)
+    //         .map { i -> i to (1..width) }
+    //         .map { (i, js) ->
+    //             when (direction) {
+    //                 UP -> getColumn(js, i)
+    //                 DOWN -> getColumn(js.reversed(), i)
+    //                 RIGHT -> getRow(i, js.reversed())
+    //                 LEFT -> getRow(i, js)
+    //             }
+    //         }
+    //         .map { moveValuesInRowOrColumn(it) }
+    //         .any { it }
+}
+
+private fun GameBoard<Int?>.move(direction: Direction, nr: Int, prog: IntProgression): Boolean = when (direction) {
+    LEFT -> moveValuesInRowOrColumn(getRow(nr, prog))
+    RIGHT -> moveValuesInRowOrColumn(getRow(nr, prog.reversed()))
+    UP -> moveValuesInRowOrColumn(getColumn(prog, nr))
+    DOWN -> moveValuesInRowOrColumn(getColumn(prog.reversed(), nr))
 }

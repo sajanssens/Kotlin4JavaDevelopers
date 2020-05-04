@@ -63,7 +63,7 @@ class TestGame2048Helper {
     fun test18MergeOfThree2() = testMerge(listOf("a", null, "a", "a"), listOf("aa", "a"))
 
     private fun testMerge(input: List<String?>, expected: List<String?>) {
-        val result = input.moveAndMergeEqual { it.repeat(2) }
+        val result = input.moveAndMergeEqual { it -> it.repeat(2) }
         Assert.assertEquals("Wrong result for $input.moveAndMergeEqual()",
                 expected, result)
     }
