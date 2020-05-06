@@ -9,7 +9,7 @@ interface GameOfFifteenInitializer {
     val initialPermutation: List<Int>
 }
 
-class RandomGameInitializer : GameOfFifteenInitializer {
+class RandomGameOfFifteenInitializer : GameOfFifteenInitializer {
     /*
      * Generate a random permutation from 1 to 15.
      * `shuffled()` function might be helpful.
@@ -17,7 +17,14 @@ class RandomGameInitializer : GameOfFifteenInitializer {
      * by swapping two numbers).
      */
     override val initialPermutation by lazy {
-        TODO()
+        val shuffled = (1 until 15).shuffled().toMutableList()
+        if (!isEven(shuffled)) shuffled.swap(0, 1)
+        shuffled
     }
+}
+
+private fun MutableList<Int>.swap(i: Int, j: Int) {
+    // i becomes j and j becomes i
+    this[i] = this[j].also { this[j] = this[i] }
 }
 
