@@ -9,7 +9,7 @@ interface GameOfFifteenInitializer {
     val initialPermutation: List<Int>
 }
 
-class RandomGameOfFifteenInitializer : GameOfFifteenInitializer {
+class RandomGameInitializer : GameOfFifteenInitializer {
     /*
      * Generate a random permutation from 1 to 15.
      * `shuffled()` function might be helpful.

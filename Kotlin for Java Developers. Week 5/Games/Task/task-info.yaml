@@ -3,7 +3,7 @@ files:
 - name: src/board/BoardImpl.kt
   visible: true
   placeholders:
-  - offset: 90
+  - offset: 114
     length: 6
     placeholder_text: TODO()
     initial_state:
@@ -12,14 +12,14 @@ files:
     initialized_from_dependency: false
     selected: false
     status: Unchecked
-  - offset: 149
+  - offset: 173
     length: 6
     placeholder_text: TODO()
     initial_state:
       length: 6
       offset: 149
     initialized_from_dependency: false
-    selected: false
+    selected: true
     status: Unchecked
   text: |+
     package board
@@ -33,8 +33,8 @@ files:
 - name: src/games/gameOfFifteen/GameOfFifteen.kt
   visible: true
   placeholders:
-  - offset: 371
-    length: 1180
+  - offset: 362
+    length: 2308
     placeholder_text: TODO()
     initial_state:
       length: 6
@@ -90,7 +90,7 @@ files:
 - name: src/games/gameOfFifteen/GameOfFifteenInitializer.kt
   visible: true
   placeholders:
-  - offset: 318
+  - offset: 309
     length: 392
     placeholder_text: TODO()
     initial_state:
