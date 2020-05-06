@@ -15,28 +15,36 @@ class GameOfFifteen(private val initializer: GameOfFifteenInitializer) : Game {
     private val board = createGameBoard<Int?>(4)
 
     override fun initialize() {
-        for (i in 1..15) {
-            // find the first cell containing null;
-            // if that cell exists, put the next value from initialpermutation in it
-            board.find { it == null }?.let { it to initializer.initialPermutation[i] }
+        val allCells = board.getAllCells()
+        initializer.initialPermutation.forEachIndexed { index, value ->
+            board[allCells.elementAt(index)] = value
         }
     }
 
-    override fun canMove(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun canMove(): Boolean = true
 
     override fun hasWon(): Boolean {
-        TODO("Not yet implemented")
+        var seqNum = 1
+        return board.all { it == null || it == seqNum++ }
     }
 
     override fun processMove(direction: Direction) {
-        TODO("Not yet implemented")
+        // temp scope, in which we can access board (the so called context object) with this.
+        // Behaves like a function "inside" the board class
+        with(board) {
+            val emptyCell = this.find { it == null }
+            emptyCell?.also { cell ->
+                cell.getNeighbour(direction.reversed())?.also { neighbour ->
+                    this[cell] = this[neighbour]
+                    this[neighbour] = null
+                }
+            }
+        }
+
     }
 
-    override fun get(i: Int, j: Int): Int? {
-        TODO("Not yet implemented")
-    }
+    override fun get(i: Int, j: Int): Int? =
+            board.run { get(getCell(i, j)) }
 
 }
 
